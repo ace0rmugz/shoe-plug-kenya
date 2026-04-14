@@ -124,3 +124,27 @@ if (contactForm) {
         contactForm.reset();
     });
 }
+function customerLogin() {
+    const name = document.getElementById("usernameInput").value;
+    
+    if (name.trim() === "") {
+        alert("Please enter your name!");
+        return;
+    }
+
+    // Save the name to the browser's memory
+    localStorage.setItem('username', name);
+    
+    // Send them to the shop
+    window.location.href = "index.html";
+}
+
+// Add this at the very top of script.js to show the name on the home page
+window.onload = function() {
+    const savedName = localStorage.getItem('username');
+    const welcomeDisplay = document.getElementById("userWelcome");
+    
+    if (savedName && welcomeDisplay) {
+        welcomeDisplay.innerText = `Karibu, ${savedName}!`;
+    }
+}
