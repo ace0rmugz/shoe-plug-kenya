@@ -84,26 +84,35 @@ function checkout() {
     const totalAmount = document.getElementById("cart-total").innerText;
     const clientName = localStorage.getItem('username') || "Guest Customer";
 
-    let message = `*NEW ORDER - SHOE PLUG KENYA*%0A%0A`;
-    message += `*Customer:* ${clientName}%0A`;
-    message += `I would like to order the following:%0A`;
+    // 1. Build the message with normal line breaks (\n)
+    let message = `*NEW ORDER - SHOE PLUG KENYA*\n\n`;
+    message += `*Customer:* ${clientName}\n`;
+    message += `I would like to order the following:\n`;
     
     cart.forEach((item, index) => {
-        message += `${index + 1}. *${item.name}* (x${item.quantity}) - Ksh ${item.price * item.quantity}%0A`;
+        message += `${index + 1}. *${item.name}* (x${item.quantity}) - Ksh ${item.price * item.quantity}\n`;
     });
 
-    message += `%0A*Total Amount: Ksh ${totalAmount}*%0A%0A_Please confirm availability and delivery._`;
+    message += `\n*Total Amount: Ksh ${totalAmount}*\n\nPlease confirm availability and delivery.`;
 
-    const myPhoneNumber = "0110974624";
-    const whatsappURL = `https://wa.me/${myPhoneNumber}?text=${message}`;
+    // 2. IMPORTANT: Use international format (254) and NO leading zero
+    const myPhoneNumber = "254110974624"; 
+
+    // 3. Use encodeURIComponent to make the URL safe for all phones
+    const encodedMessage = encodeURIComponent(message);
+    const whatsappURL = `https://wa.me/${myPhoneNumber}?text=${encodedMessage}`;
 
     window.open(whatsappURL, '_blank');
 
+    // Reset everything
     cart = [];
     saveCart();
-    toggleCart();
+    if (typeof toggleCart === "function") {
+        toggleCart();
+    }
 }
 
+// Contact form logic
 const contactForm = document.getElementById("contactForm");
 if (contactForm) {
     contactForm.addEventListener("submit", (e) => {
