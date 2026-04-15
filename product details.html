@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details - Shoe Plug Kenya</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">SHOE PLUG <span>KENYA</span></div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html#products">Collection</a></li>
+        </ul>
+    </nav>
+
+    <div class="details-container">
+        <div class="details-grid">
+            <div class="details-image">
+                <img id="mainShoeImage" src="" alt="Shoe Image">
+            </div>
+
+            <div class="details-info">
+                <h1 id="shoeName">Loading...</h1>
+                <p class="price" id="shoePrice"></p>
+                <p class="description">Premium quality drip, perfect for the streets of Nairobi. High durability and maximum comfort.</p>
+
+                <div class="size-selector">
+                    <label for="shoeSize">Select Size (EU):</label>
+                    <select id="shoeSize">
+                        <option value="39">39</option>
+                        <option value="40">40</option>
+                        <option value="41">41</option>
+                        <option value="42">42</option>
+                        <option value="43">43</option>
+                        <option value="44">44</option>
+                        <option value="45">45</option>
+                    </select>
+                </div>
+
+                <button class="add-to-cart-btn" onclick="addDetailedItemToCart()">Add to Cart</button>
+                <div id="addedMsg" style="color: green; margin-top: 10px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Run this function as soon as the page loads
+        window.onload = loadProductDetails;
+    </script>
+</body>
+</html>
