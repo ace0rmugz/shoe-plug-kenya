@@ -148,3 +148,40 @@ window.onload = function() {
         welcomeDisplay.innerText = `Karibu, ${savedName}!`;
     }
 }
+// 1. Master Shoe Data
+const shoeData = {
+    "nike_airforce_1_black": { name: "AF1 Black", price: 2500, img: "nike_airforce_1_black.jpg" },
+    "nike_airforce_1_white": { name: "AF1 White", price: 2500, img: "nike_airforce_1_white.jpg" },
+    "adidas_campus": { name: "Adidas Campus", price: 3000, img: "adidas_campus.jpg" },
+    "clarks": { name: "Clarks", price: 4000, img: "clarks.jpg" }
+};
+
+// 2. Load Details on the Detail Page
+function loadProductDetails() {
+    const params = new URLSearchParams(window.location.search);
+    const shoeId = params.get('shoe');
+
+    if (shoeId && shoeData[shoeId]) {
+        const item = shoeData[shoeId];
+        document.getElementById('mainShoeImage').src = item.img;
+        document.getElementById('shoeName').innerText = item.name;
+        document.getElementById('shoePrice').innerText = `Ksh ${item.price}`;
+    } else {
+        document.getElementById('shoeName').innerText = "Shoe Not Found";
+    }
+}
+
+// 3. Add to Cart from the Detail Page (Includes Size)
+function addDetailedItemToCart() {
+    const name = document.getElementById('shoeName').innerText;
+    const priceText = document.getElementById('shoePrice').innerText;
+    const price = parseInt(priceText.replace('Ksh ', ''));
+    const size = document.getElementById('shoeSize').value;
+
+    const fullProductName = `${name} (Size ${size})`;
+
+    addToCart(fullProductName, price);
+    
+    document.getElementById('addedMsg').innerText = `✅ Added Size ${size} to cart!`;
+    setTimeout(() => { document.getElementById('addedMsg').innerText = ""; }, 2000);
+}
