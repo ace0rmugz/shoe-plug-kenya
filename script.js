@@ -80,6 +80,19 @@ function checkout() {
         alert("Your cart is empty! Add some sneakers first.");
         return;
     }
+    function searchShoes() {
+    let input = document.getElementById('shoeSearch').value.toLowerCase();
+    let cards = document.querySelectorAll('.product-card');
+
+    cards.forEach(card => {
+        let name = card.querySelector('h3').innerText.toLowerCase();
+        if (name.includes(input)) {
+            card.style.display = "";
+        } else {
+            card.style.display = "none";
+        }
+    });
+}
 
     const totalAmount = document.getElementById("cart-total").innerText;
     const clientName = localStorage.getItem('username') || "Guest Customer";
