@@ -1,4 +1,4 @@
-// --- 1. INITIALIZATION & DATA ---
+// --- 1. DATA & INITIALIZATION ---
 let cart = JSON.parse(localStorage.getItem('shoePlugCart')) || [];
 
 const shoeData = {
@@ -8,19 +8,16 @@ const shoeData = {
     "clarks": { name: "Clarks", price: 4000, img: "clarks.jpg" }
 };
 
-// --- 2. THE MASTER ONLOAD (Combines everything) ---
+// --- 2. MASTER ONLOAD ---
 window.onload = () => {
     updateCartUI();
     
-    // Handle Welcome Message & Logout Toggle
+    // Greeting and Logout Logic
     const loggedInUser = localStorage.getItem('username');
-    const welcomeDisplay = document.getElementById("userWelcome"); // for index.html
-    const greetingElem = document.getElementById("user-greeting"); // for alternate headers
+    const greetingElem = document.getElementById("user-greeting");
     
-    const userDisplay = welcomeDisplay || greetingElem;
-
-    if (loggedInUser && userDisplay) {
-        userDisplay.innerText = `Karibu, ${loggedInUser}!`;
+    if (loggedInUser && greetingElem) {
+        greetingElem.innerText = `Karibu, ${loggedInUser}!`;
         const loginLink = document.querySelector('a[href="login.html"]');
         if (loginLink) {
             loginLink.innerText = "Logout";
@@ -33,13 +30,13 @@ window.onload = () => {
         }
     }
 
-    // If we are on the product details page, load the shoe info
+    // Detail Page Check
     if (window.location.pathname.includes('product-details.html')) {
         loadProductDetails();
     }
 };
 
-// --- 3. SHOPPING CART LOGIC ---
+// --- 3. CORE FUNCTIONS ---
 function addToCart(name, price) {
     const existing = cart.find(item => item.name === name);
     if (existing) {
@@ -98,7 +95,6 @@ function toggleCart() {
     }
 }
 
-// --- 4. SEARCH & PRODUCT DETAILS ---
 function searchShoes() {
     let input = document.getElementById('shoeSearch').value.toLowerCase();
     let cards = document.querySelectorAll('.product-card');
@@ -118,9 +114,6 @@ function loadProductDetails() {
         document.getElementById('mainShoeImage').src = item.img;
         document.getElementById('shoeName').innerText = item.name;
         document.getElementById('shoePrice').innerText = `Ksh ${item.price}`;
-    } else {
-        const nameDisplay = document.getElementById('shoeName');
-        if (nameDisplay) nameDisplay.innerText = "Shoe Not Found";
     }
 }
 
@@ -130,66 +123,28 @@ function addDetailedItemToCart() {
     const price = parseInt(priceText.replace('Ksh ', '').replace(',', ''));
     const size = document.getElementById('shoeSize').value;
 
-    const fullProductName = `${name} (Size ${size})`;
-    addToCart(fullProductName, price);
-    
-    const msg = document.getElementById('addedMsg');
-    if (msg) {
-        msg.innerText = `✅ Added Size ${size} to cart!`;
-        setTimeout(() => { msg.innerText = ""; }, 2000);
-    }
+    addToCart(`${name} (Size ${size})`, price);
+    document.getElementById('addedMsg').innerText = `✅ Added Size ${size}!`;
+    setTimeout(() => { document.getElementById('addedMsg').innerText = ""; }, 2000);
 }
 
-// --- 5. CHECKOUT & LOGIN ---
 function checkout() {
-    if (cart.length === 0) {
-        alert("Your cart is empty! Add some sneakers first.");
-        return;
-    }
-
+    if (cart.length === 0) return alert("Cart empty!");
+    
     const totalAmount = document.getElementById("cart-total").innerText;
     const clientName = localStorage.getItem('username') || "Guest Customer";
 
     let message = `*NEW ORDER - SHOE PLUG KENYA*\n\n`;
     message += `*Customer:* ${clientName}\n`;
-    message += `I would like to order the following:\n`;
-    
     cart.forEach((item, index) => {
         message += `${index + 1}. *${item.name}* (x${item.quantity}) - Ksh ${item.price * item.quantity}\n`;
     });
-
-    message += `\n*Total Amount: Ksh ${totalAmount}*\n\nPlease confirm availability and delivery.`;
+    message += `\n*Total: Ksh ${totalAmount}*`;
 
     const myPhoneNumber = "254110974624"; 
-    const encodedMessage = encodeURIComponent(message);
-    const whatsappURL = `https://wa.me/${myPhoneNumber}?text=${encodedMessage}`;
-
-    window.open(whatsappURL, '_blank');
+    window.open(`https://wa.me/${myPhoneNumber}?text=${encodeURIComponent(message)}`, '_blank');
 
     cart = [];
     saveCart();
     toggleCart();
-}
-
-function customerLogin() {
-    const name = document.getElementById("usernameInput").value;
-    if (name.trim() === "") {
-        alert("Please enter your name!");
-        return;
-    }
-    localStorage.setItem('username', name);
-    window.location.href = "index.html";
-}
-
-// --- 6. CONTACT FORM ---
-const contactForm = document.getElementById("contactForm");
-if (contactForm) {
-    contactForm.addEventListener("submit", (e) => {
-        e.preventDefault();
-        const msgContainer = document.getElementById("contact-msg");
-        if (msgContainer) {
-            msgContainer.innerText = "✅ Message sent! We'll call you soon.";
-        }
-        contactForm.reset();
-    });
 }
