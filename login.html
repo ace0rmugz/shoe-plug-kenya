@@ -5,7 +5,7 @@
     <title>Login - Shoe Plug Kenya</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Small tweak to make sure two boxes look good */
+        
         .login-body { display: flex; flex-direction: column; align-items: center; gap: 20px; padding: 20px; }
         .login-container { width: 100%; max-width: 400px; }
         .divider { color: #888; margin: 10px 0; font-weight: bold; }
@@ -34,7 +34,7 @@
     </div>
 
     <script>
-        // 1. Admin Logic
+
         function handleLogin() {
             const u = document.getElementById("user").value;
             const p = document.getElementById("pass").value;
@@ -50,7 +50,6 @@
             }
         }
 
-        // 2. Customer Logic (Saves name to browser memory)
         function customerLogin() {
             const name = document.getElementById("usernameInput").value;
             if (name.trim() === "") {
