@@ -7,48 +7,38 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <nav class="navbar">
-        <div class="logo">SHOE PLUG <span>KENYA</span></div>
-        <ul class="nav-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="index.html#products">Collection</a></li>
-        </ul>
-    </nav>
+    <header>
+        <h1>Shoe Plug Kenya</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#products">Shop</a></li>
+            </ul>
+        </nav>
+    </header>
 
-    <div class="details-container">
-        <div class="details-grid">
-            <div class="details-image">
-                <img id="mainShoeImage" src="" alt="Shoe Image">
+    <div style="max-width: 800px; margin: 50px auto; padding: 20px; display: flex; gap: 40px; flex-wrap: wrap;">
+        <img id="mainShoeImage" src="" style="width: 100%; max-width: 400px; border-radius: 10px;">
+        <div>
+            <h1 id="shoeName">Loading...</h1>
+            <p id="shoePrice" style="font-size: 1.5rem; color: #ff4500; font-weight: bold;"></p>
+            
+            <div style="margin: 20px 0;">
+                <label>Select Size (EU):</label><br>
+                <select id="shoeSize" style="padding: 10px; width: 100px; margin-top: 10px;">
+                    <option value="40">40</option>
+                    <option value="41">41</option>
+                    <option value="42">42</option>
+                    <option value="43">43</option>
+                    <option value="44">44</option>
+                </select>
             </div>
 
-            <div class="details-info">
-                <h1 id="shoeName">Loading...</h1>
-                <p class="price" id="shoePrice"></p>
-                <p class="description">Premium quality drip, perfect for the streets of Nairobi. High durability and maximum comfort.</p>
-
-                <div class="size-selector">
-                    <label for="shoeSize">Select Size (EU):</label>
-                    <select id="shoeSize">
-                        <option value="39">39</option>
-                        <option value="40">40</option>
-                        <option value="41">41</option>
-                        <option value="42">42</option>
-                        <option value="43">43</option>
-                        <option value="44">44</option>
-                        <option value="45">45</option>
-                    </select>
-                </div>
-
-                <button class="add-to-cart-btn" onclick="addDetailedItemToCart()">Add to Cart</button>
-                <div id="addedMsg" style="color: green; margin-top: 10px;"></div>
-            </div>
+            <button onclick="addDetailedItemToCart()" style="background: #ff4500; color: white; border: none; padding: 15px 30px; border-radius: 5px; cursor: pointer;">Add to Cart</button>
+            <p id="addedMsg" style="color: green; margin-top: 10px;"></p>
         </div>
     </div>
 
     <script src="script.js"></script>
-    <script>
-        // Run this function as soon as the page loads
-        window.onload = loadProductDetails;
-    </script>
 </body>
 </html>
