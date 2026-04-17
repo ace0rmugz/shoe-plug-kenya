@@ -5,16 +5,19 @@ const shoeData = {
     "nike_airforce_1_white": { name: "AF1 White", price: 2500, img: "nike_airforce_1_white.jpg" },
     "adidas_campus": { name: "Adidas Campus", price: 3000, img: "adidas_campus.jpg" },
     "clarks": { name: "Clarks", price: 4000, img: "clarks.jpg" },
-    "nike_airmax_95": { name: "Nike Airmax 95's", price: 3500, img: "Nike_Airmax_95's.jpg" },
-    "nike_airmax_97": { name: "Nike Airmax 97's", price: 3500, img: "Nike_Airmax_97's.jpg" },
-    "santoni_loafers": { name: "Santoni loafers", price: 5000, img: "Santoni_loafers.jpg" }
+    
+    // Updated to match your GitHub file names exactly (Spaces and Extensions)
+    "nike_airmax_95": { name: "Nike Airmax 95's", price: 3500, img: "Nike Airmax 95's.jpg" },
+    "nike_airmax_97": { name: "Nike Airmax 97's", price: 3500, img: "Nike airmax 97's.jpg" },
+    "santoni_loafers": { name: "Santoni loafers", price: 5000, img: "Santoni loafers.jpeg" }
 };
 
 window.onload = () => {
     updateCartUI();
 
     const loggedInUser = localStorage.getItem('username');
-    const greetingElem = document.getElementById("user-greeting");
+    // Changed to 'userWelcome' to match your latest index.html
+    const greetingElem = document.getElementById("userWelcome"); 
     
     if (loggedInUser && greetingElem) {
         greetingElem.innerText = `Karibu, ${loggedInUser}!`;
