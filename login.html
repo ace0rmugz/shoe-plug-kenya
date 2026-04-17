@@ -4,25 +4,37 @@
     <meta charset="UTF-8">
     <title>Login - Shoe Plug Kenya</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* Small tweak to make sure two boxes look good */
+        .login-body { display: flex; flex-direction: column; align-items: center; gap: 20px; padding: 20px; }
+        .login-container { width: 100%; max-width: 400px; }
+        .divider { color: #888; margin: 10px 0; font-weight: bold; }
+    </style>
 </head>
 <body class="login-body">
+
+    <div class="login-container">
+        <h2>Welcome to Shoe Plug Kenya</h2>
+        <p style="font-size: 0.8rem; color: #666; margin-bottom: 20px;">Enter your name to start shopping</p>
+        <input type="text" id="usernameInput" placeholder="Your Name (e.g. Biggie)">
+        <button onclick="customerLogin()">Enter Shop</button>
+    </div>
+
+    <div class="divider">OR</div>
+
     <div class="login-container">
         <h2>Admin Login</h2>
-        <p style="font-size: 0.8rem; color: #666; margin-bottom: 20px;">Use admin / 1234</p>
+        <p style="font-size: 0.8rem; color: #666; margin-bottom: 20px;">Store management only</p>
         <input type="text" id="user" placeholder="Username">
         <input type="password" id="pass" placeholder="Password">
-        <button onclick="handleLogin()">Login</button>
+        <button onclick="handleLogin()" style="background-color: #444;">Login as Admin</button>
         <p id="msg" style="margin-top:15px; font-weight:bold;"></p>
         <br>
         <a href="index.html" style="color:#666; text-decoration:none;">← Back to Store</a>
     </div>
 
-    <div class="login-container">
-    <h2>Welcome to Shoe Plug Kenya</h2>
-    <input type="text" id="usernameInput" placeholder="Enter your name to start shopping">
-    <button onclick="customerLogin()">Enter Shop</button>
-</div>
     <script>
+        // 1. Admin Logic
         function handleLogin() {
             const u = document.getElementById("user").value;
             const p = document.getElementById("pass").value;
@@ -36,6 +48,17 @@
                 m.style.color = "red";
                 m.innerText = "Invalid credentials!";
             }
+        }
+
+        // 2. Customer Logic (Saves name to browser memory)
+        function customerLogin() {
+            const name = document.getElementById("usernameInput").value;
+            if (name.trim() === "") {
+                alert("Tafadhali, enter your name to continue!");
+                return;
+            }
+            localStorage.setItem('username', name);
+            window.location.href = "index.html";
         }
     </script>
 </body>
