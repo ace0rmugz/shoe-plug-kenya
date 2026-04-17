@@ -1,18 +1,18 @@
-// --- 1. DATA & INITIALIZATION ---
 let cart = JSON.parse(localStorage.getItem('shoePlugCart')) || [];
 
 const shoeData = {
     "nike_airforce_1_black": { name: "AF1 Black", price: 2500, img: "nike_airforce_1_black.jpg" },
     "nike_airforce_1_white": { name: "AF1 White", price: 2500, img: "nike_airforce_1_white.jpg" },
     "adidas_campus": { name: "Adidas Campus", price: 3000, img: "adidas_campus.jpg" },
-    "clarks": { name: "Clarks", price: 4000, img: "clarks.jpg" }
+    "clarks": { name: "Clarks", price: 4000, img: "clarks.jpg" },
+    "nike_airmax_95": { name: "Nike Airmax 95's", price: 3500, img: "Nike_Airmax_95's.jpg" },
+    "nike_airmax_97": { name: "Nike Airmax 97's", price: 3500, img: "Nike_Airmax_97's.jpg" },
+    "santoni_loafers": { name: "Santoni loafers", price: 5000, img: "Santoni_loafers.jpg" }
 };
 
-// --- 2. MASTER ONLOAD ---
 window.onload = () => {
     updateCartUI();
-    
-    // Greeting and Logout Logic
+
     const loggedInUser = localStorage.getItem('username');
     const greetingElem = document.getElementById("user-greeting");
     
@@ -30,13 +30,11 @@ window.onload = () => {
         }
     }
 
-    // Detail Page Check
     if (window.location.pathname.includes('product-details.html')) {
         loadProductDetails();
     }
 };
 
-// --- 3. CORE FUNCTIONS ---
 function addToCart(name, price) {
     const existing = cart.find(item => item.name === name);
     if (existing) {
